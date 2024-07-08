@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DzCoffee.Drinks
+﻿namespace DzCoffee.Drinks
 {
     public class Drink
     {
@@ -12,8 +6,8 @@ namespace DzCoffee.Drinks
 
         public double Price { get; private set; }
 
-        public Drink(string name, double price) 
-        { 
+        public Drink(string name, double price)
+        {
             Name = name;
             Price = price;
         }

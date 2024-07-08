@@ -2,7 +2,6 @@
 {
     public class HotDrink : Drink
     {
-
         public double WaterNeeded { get; private set; }
 
         public double CoffeePowderNeeded { get; private set; }
@@ -13,7 +12,7 @@
 
 
         public HotDrink(string name, double waterNeeded, double coffeePowderNeeded, double milkNeeded, int sugarNeeded, double price)
-            :base(name, price)
+            : base(name, price)
         {
             WaterNeeded = waterNeeded;
             CoffeePowderNeeded = coffeePowderNeeded;

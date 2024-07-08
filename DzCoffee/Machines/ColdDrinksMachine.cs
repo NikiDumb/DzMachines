@@ -1,18 +1,11 @@
-﻿using DzCoffee.Drinks;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace DzCoffee.Machines
+﻿namespace DzCoffee.Machines
 {
     internal class ColdDrinksMachine
     {
         private List<Drinks.ColdDrink> _ColdDrinks;
 
         private double _Money;
-        
+
         public ColdDrinksMachine(List<Drinks.ColdDrink> coldDrinks)
         {
             _ColdDrinks = coldDrinks;
@@ -53,7 +46,7 @@ namespace DzCoffee.Machines
             int numOfChoicedColdDrink = Convert.ToInt32(Console.ReadLine()) - 1;
 
             if (numOfChoicedColdDrink < 0
-                || numOfChoicedColdDrink > _ColdDrinks.Count-1)
+                || numOfChoicedColdDrink > _ColdDrinks.Count - 1)
             {
                 throw new Exception("Неверный выбор напитка");
             }
@@ -82,7 +75,7 @@ namespace DzCoffee.Machines
 
         private void MakeColdDrink(int numOfColdDrink)
         {
-            if (_ColdDrinks[numOfColdDrink].Count<1)
+            if (_ColdDrinks[numOfColdDrink].Count < 1)
             {
                 throw new Exception($"Аппарат не выдаст тебе {_ColdDrinks[numOfColdDrink].Name}");
             }
