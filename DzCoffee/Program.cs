@@ -38,8 +38,15 @@ namespace DzCoffee
 
             while (true)
             {
-                CoffeeMachineFirst.GetHotDrink();
-                ColdDrinksMachineFirst.GetColdDrink();
+                try
+                {
+                    CoffeeMachineFirst.GetHotDrink();
+                    ColdDrinksMachineFirst.GetColdDrink();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Беда {e.Message}");
+                }
             }
         }
     }

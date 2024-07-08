@@ -60,7 +60,7 @@ namespace DzCoffee.Machines
             int numOfChoicedHotDrink = Convert.ToInt32(Console.ReadLine()) - 1;
 
             if (numOfChoicedHotDrink < 0
-                || numOfChoicedHotDrink > _HotDrinks.Count)
+                || numOfChoicedHotDrink > _HotDrinks.Count-1)
             {
                 throw new Exception("Неверный выбор напитка");
             }
