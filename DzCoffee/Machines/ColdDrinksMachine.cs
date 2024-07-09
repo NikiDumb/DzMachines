@@ -1,12 +1,14 @@
-﻿namespace DzCoffee.Machines
+﻿using DzCoffee.Drinks;
+
+namespace DzCoffee.Machines
 {
     internal class ColdDrinksMachine
     {
-        private List<Drinks.ColdDrink> _coldDrinks;
+        private Dictionary<string, ColdDrink> _coldDrinks;
 
         private double _money;
 
-        public ColdDrinksMachine(List<Drinks.ColdDrink> coldDrinks)
+        public ColdDrinksMachine(Dictionary<string, ColdDrink> coldDrinks)
         {
             _coldDrinks = coldDrinks;
             _money = 0;
@@ -16,43 +18,41 @@
         {
             PrintColdDrinksList();
 
-            int numOfChoicedColdDrink = ChoiceColdDrink();
+            string nameOfChoicedColdDrink = ChooseColdDrink();
+
+            ValidateColdDrink(nameOfChoicedColdDrink);
 
             double enteredMoney = EnterMoney();
 
-            PayForColdDrink(numOfChoicedColdDrink, enteredMoney);
+            PayForColdDrink(nameOfChoicedColdDrink, enteredMoney);
 
-            MakeColdDrink(numOfChoicedColdDrink);
-
-            CompleteColdDrink(numOfChoicedColdDrink);
+            MakeColdDrink(nameOfChoicedColdDrink);
         }
 
         private void PrintColdDrinksList()
         {
             Console.WriteLine("Меню холодных напитков");
 
-            for (int i = 0; i < _coldDrinks.Count; i++)
+            foreach (ColdDrink coldDrink in _coldDrinks.Values)
             {
-                Console.WriteLine($"Напиток #{i + 1}");
-
-                _coldDrinks[i].PrintDrink();
+                coldDrink.PrintDrink();
             }
 
-            Console.WriteLine("Выбери напиток, написав циферку");
+            Console.WriteLine("Выбери напиток, написав название");
         }
 
-        private int ChoiceColdDrink()
+        private string ChooseColdDrink()
         {
-            int numOfChoicedColdDrink = Convert.ToInt32(Console.ReadLine()) - 1;
+            string nameOfChoicedColdDrink = Console.ReadLine();
 
-            if (numOfChoicedColdDrink < 0
-                || numOfChoicedColdDrink > _coldDrinks.Count - 1)
+            return nameOfChoicedColdDrink;
+        }
+
+        private void ValidateColdDrink(string drinkName)
+        {
+            if (!_coldDrinks.ContainsKey(drinkName))
             {
                 throw new Exception("Неверный выбор напитка");
-            }
-            else
-            {
-                return numOfChoicedColdDrink;
             }
         }
 
@@ -65,9 +65,9 @@
             return money;
         }
 
-        private void PayForColdDrink(int numOfColdDrink, double money)
+        private void PayForColdDrink(string drinkName, double money)
         {
-            if (money < _coldDrinks[numOfColdDrink].Price)
+            if (money < _coldDrinks[drinkName].Price)
             {
                 throw new Exception("Ты слишком бедный");
             }
@@ -77,22 +77,19 @@
             }
         }
 
-        private void MakeColdDrink(int numOfColdDrink)
+        private void MakeColdDrink(string drinkName)
         {
-            if (_coldDrinks[numOfColdDrink].Count < 1)
+            if (_coldDrinks[drinkName].Count < 1)
             {
-                throw new Exception($"Аппарат не выдаст тебе {_coldDrinks[numOfColdDrink].Name}");
+                throw new Exception($"Аппарат не выдаст тебе {_coldDrinks[drinkName].Name}");
             }
             else
             {
-                _coldDrinks[numOfColdDrink].Count -= 1;
-            }
-        }
+                _coldDrinks[drinkName].Count -= 1;
 
-        private void CompleteColdDrink(int numOfColdDrink)
-        {
-            Console.WriteLine($"Ваш {_coldDrinks[numOfColdDrink].Name} выдан!!!!");
-            Console.WriteLine();
+                Console.WriteLine($"Ваш {_coldDrinks[drinkName].Name} выдан!!!!");
+                Console.WriteLine();
+            }
         }
     }
 }

@@ -2,9 +2,9 @@
 {
     public class Drink
     {
-        public string Name { get; private set; }
+        public string Name { get; set; }
 
-        public double Price { get; private set; }
+        public double Price { get; set; }
 
         public Drink(string name, double price)
         {

@@ -1,4 +1,5 @@
-﻿using DzCoffee.Drinks;
+﻿using DzCoffee.DataManager;
+using DzCoffee.Drinks;
 using DzCoffee.Machines;
 
 namespace DzCoffee
@@ -7,27 +8,20 @@ namespace DzCoffee
     {
         static void Main(string[] args)
         {
-            List<HotDrink> hotDrinks = new List<HotDrink>()
-            { 
-                new HotDrink("Кофеёк", 20, 20, 0, 0, 100),
+            CoffeeReceipesDataManager hotManager = new CoffeeReceipesDataManager("Data/coffeeReceipes");
 
-                new HotDrink("Моча", 25, 25, 25, 25, 125),
+            hotManager.AddReceipe(hotManager.WriteReceipe());
 
-                new HotDrink("Какао", 30, 30, 30, 0, 130),
-
-                new HotDrink("Эспрессо", 50, 50, 0, 0, 200)
-            };
-            
-            List<ColdDrink> coldDrinks = new List<ColdDrink>()
-            {
-                new ColdDrink("Добровый кола", 89, 5),
-
-                new ColdDrink("Добровый палпи", 100, 7),
-
-                new ColdDrink("Добровый орандж", 69, 2)
-            };
+            Dictionary<string, HotDrink> hotDrinks = hotManager.ReturnReceipesDict();
 
             CoffeeMachine CoffeeMachineFirst = new CoffeeMachine(100, 100, 100, 100, hotDrinks);
+
+
+            ColdDrinksDataManager coldManager = new ColdDrinksDataManager("Data/coldDrinks");
+
+            coldManager.AddDrink(coldManager.WriteParameters());
+
+            Dictionary<string, ColdDrink> coldDrinks = coldManager.ReturnDrinksDict();
 
             ColdDrinksMachine ColdDrinksMachineFirst = new ColdDrinksMachine(coldDrinks);
 
@@ -36,11 +30,18 @@ namespace DzCoffee
                 try
                 {
                     CoffeeMachineFirst.GetHotDrink();
+                }
+                catch (Exception e)
+                {
+                    Console.WriteLine($"Беда в кофейном автомате {e.Message}");
+                }
+                try
+                {
                     ColdDrinksMachineFirst.GetColdDrink();
                 }
                 catch (Exception e)
                 {
-                    Console.WriteLine($"Беда {e.Message}");
+                    Console.WriteLine($"Беда в газировочном автомате {e.Message}");
                 }
             }
         }

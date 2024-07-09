@@ -12,11 +12,11 @@ namespace DzCoffee.Machines
 
         public int Sugar { get; private set; }
 
-        private List<HotDrink> _hotDrinks;
+        private Dictionary<string, HotDrink> _hotDrinks;
 
         private double _money;
 
-        public CoffeeMachine(double water, double coffeePowder, double milk, int sugar, List<HotDrink> hotDrinks)
+        public CoffeeMachine(double water, double coffeePowder, double milk, int sugar, Dictionary<string, HotDrink> hotDrinks)
         {
             Water = water;
             CoffeePowder = coffeePowder;
@@ -30,43 +30,41 @@ namespace DzCoffee.Machines
         {
             PrintHotDrinksList();
 
-            int numOfChoicedHotDrink = ChoiceHotDrink();
+            string nameOfChoicedHotDrink = ChooseHotDrink();
+
+            ValidateHotDrink(nameOfChoicedHotDrink);
 
             double enteredMoney = EnterMoney();
 
-            PayForHotDrink(numOfChoicedHotDrink, enteredMoney);
+            PayForHotDrink(nameOfChoicedHotDrink, enteredMoney);
 
-            MakeHotDrink(numOfChoicedHotDrink);
-
-            CompleteHotDrink(numOfChoicedHotDrink);
+            MakeHotDrink(nameOfChoicedHotDrink);
         }
 
         private void PrintHotDrinksList()
         {
             Console.WriteLine("Меню горячих напитков");
 
-            for (int i = 0; i < _hotDrinks.Count; i++)
+            foreach (HotDrink hotDrink in _hotDrinks.Values)
             {
-                Console.WriteLine($"Напиток #{i + 1}");
-
-                _hotDrinks[i].PrintDrink();
+                hotDrink.PrintDrink();
             }
 
-            Console.WriteLine("Выбери напиток, написав циферку");
+            Console.WriteLine("Выбери напиток, написав его название");
         }
 
-        private int ChoiceHotDrink()
+        private string ChooseHotDrink()
         {
-            int numOfChoicedHotDrink = Convert.ToInt32(Console.ReadLine()) - 1;
+            string nameOfChoicedHotDrink = Console.ReadLine();
 
-            if (numOfChoicedHotDrink < 0
-                || numOfChoicedHotDrink > _hotDrinks.Count - 1)
+            return nameOfChoicedHotDrink;
+        }
+
+        private void ValidateHotDrink(string drinkName)
+        {
+            if (!_hotDrinks.ContainsKey(drinkName))
             {
                 throw new Exception("Неверный выбор напитка");
-            }
-            else
-            {
-                return numOfChoicedHotDrink;
             }
         }
 
@@ -79,9 +77,9 @@ namespace DzCoffee.Machines
             return money;
         }
 
-        private void PayForHotDrink(int numOfHotDrink, double money)
+        private void PayForHotDrink(string drinkName, double money)
         {
-            if (money < _hotDrinks[numOfHotDrink].Price)
+            if (money < _hotDrinks[drinkName].Price)
             {
                 throw new Exception("Ты слишком бедный");
             }
@@ -91,28 +89,26 @@ namespace DzCoffee.Machines
             }
         }
 
-        private void MakeHotDrink(int numOfHotDrink)
+        private void MakeHotDrink(string drinkName)
         {
-            if (Water - _hotDrinks[numOfHotDrink].WaterNeeded < 0
-                || CoffeePowder - _hotDrinks[numOfHotDrink].CoffeePowderNeeded < 0
-                || Milk - _hotDrinks[numOfHotDrink].MilkNeeded < 0
-                || Sugar - _hotDrinks[numOfHotDrink].SugarNeeded < 0)
+            HotDrink crntDrink = _hotDrinks[drinkName];
+            if (Water - crntDrink.WaterNeeded < 0
+                || CoffeePowder - crntDrink.CoffeePowderNeeded < 0
+                || Milk - crntDrink.MilkNeeded < 0
+                || Sugar - crntDrink.SugarNeeded < 0)
             {
-                throw new Exception($"Аппарат не приготовит тебе {_hotDrinks[numOfHotDrink].Name}");
+                throw new Exception($"Аппарат не приготовит тебе {crntDrink.Name}");
             }
             else
             {
-                Water -= _hotDrinks[numOfHotDrink].WaterNeeded;
-                CoffeePowder -= _hotDrinks[numOfHotDrink].CoffeePowderNeeded;
-                Milk -= _hotDrinks[numOfHotDrink].MilkNeeded;
-                Sugar -= _hotDrinks[numOfHotDrink].SugarNeeded;
-            }
-        }
+                Water -= crntDrink.WaterNeeded;
+                CoffeePowder -= crntDrink.CoffeePowderNeeded;
+                Milk -= crntDrink.MilkNeeded;
+                Sugar -= crntDrink.SugarNeeded;
 
-        private void CompleteHotDrink(int numOfHotDrink)
-        {
-            Console.WriteLine($"Ваш {_hotDrinks[numOfHotDrink].Name} готов!!!!");
-            Console.WriteLine();
+                Console.WriteLine($"Ваш {crntDrink.Name} готов!!!!");
+                Console.WriteLine();
+            }
         }
     }
 }

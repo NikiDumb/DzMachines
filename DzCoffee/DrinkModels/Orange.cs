@@ -3,7 +3,7 @@ namespace DzCoffee.Drinks
 {
     public class Orange
     {
-        public int DaysAlive { get; private set; }
+        public int DaysAlive { get; set; }
 
         public Orange()
         {
