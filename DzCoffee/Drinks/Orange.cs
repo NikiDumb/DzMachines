@@ -1,7 +1,7 @@
 ﻿
 namespace DzCoffee.Drinks
 {
-    internal class Orange
+    public class Orange
     {
         public int DaysAlive { get; private set; }
 

@@ -46,11 +46,12 @@ namespace DzCoffee.Machines
             {
                 throw new Exception("Апельсинов нет((");
             }
+            else
+            {
+                Oranges.RemoveRange(0, 2);
 
-            Oranges.RemoveRange(0, 2);
-
-            Console.WriteLine("Ваш сок!!!");
+                Console.WriteLine("Ваш сок!!!");
+            }
         }
-
     }
 }

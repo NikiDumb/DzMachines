@@ -2,14 +2,14 @@
 {
     internal class ColdDrinksMachine
     {
-        private List<Drinks.ColdDrink> _ColdDrinks;
+        private List<Drinks.ColdDrink> _coldDrinks;
 
-        private double _Money;
+        private double _money;
 
         public ColdDrinksMachine(List<Drinks.ColdDrink> coldDrinks)
         {
-            _ColdDrinks = coldDrinks;
-            _Money = 0;
+            _coldDrinks = coldDrinks;
+            _money = 0;
         }
 
         public void GetColdDrink()
@@ -31,11 +31,11 @@
         {
             Console.WriteLine("Меню холодных напитков");
 
-            for (int i = 0; i < _ColdDrinks.Count; i++)
+            for (int i = 0; i < _coldDrinks.Count; i++)
             {
                 Console.WriteLine($"Напиток #{i + 1}");
 
-                _ColdDrinks[i].PrintDrink();
+                _coldDrinks[i].PrintDrink();
             }
 
             Console.WriteLine("Выбери напиток, написав циферку");
@@ -46,12 +46,14 @@
             int numOfChoicedColdDrink = Convert.ToInt32(Console.ReadLine()) - 1;
 
             if (numOfChoicedColdDrink < 0
-                || numOfChoicedColdDrink > _ColdDrinks.Count - 1)
+                || numOfChoicedColdDrink > _coldDrinks.Count - 1)
             {
                 throw new Exception("Неверный выбор напитка");
             }
-
-            return numOfChoicedColdDrink;
+            else
+            {
+                return numOfChoicedColdDrink;
+            }
         }
 
         private double EnterMoney()
@@ -65,27 +67,31 @@
 
         private void PayForColdDrink(int numOfColdDrink, double money)
         {
-            if (money < _ColdDrinks[numOfColdDrink].Price)
+            if (money < _coldDrinks[numOfColdDrink].Price)
             {
                 throw new Exception("Ты слишком бедный");
             }
-
-            _Money += money;
+            else
+            {
+                _money += money;
+            }
         }
 
         private void MakeColdDrink(int numOfColdDrink)
         {
-            if (_ColdDrinks[numOfColdDrink].Count < 1)
+            if (_coldDrinks[numOfColdDrink].Count < 1)
             {
-                throw new Exception($"Аппарат не выдаст тебе {_ColdDrinks[numOfColdDrink].Name}");
+                throw new Exception($"Аппарат не выдаст тебе {_coldDrinks[numOfColdDrink].Name}");
             }
-
-            _ColdDrinks[numOfColdDrink].Count -= 1;
+            else
+            {
+                _coldDrinks[numOfColdDrink].Count -= 1;
+            }
         }
 
         private void CompleteColdDrink(int numOfColdDrink)
         {
-            Console.WriteLine($"Ваш {_ColdDrinks[numOfColdDrink].Name} выдан!!!!");
+            Console.WriteLine($"Ваш {_coldDrinks[numOfColdDrink].Name} выдан!!!!");
             Console.WriteLine();
         }
     }

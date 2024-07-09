@@ -12,9 +12,9 @@ namespace DzCoffee.Machines
 
         public int Sugar { get; private set; }
 
-        private List<HotDrink> _HotDrinks;
+        private List<HotDrink> _hotDrinks;
 
-        private double _Money;
+        private double _money;
 
         public CoffeeMachine(double water, double coffeePowder, double milk, int sugar, List<HotDrink> hotDrinks)
         {
@@ -22,8 +22,8 @@ namespace DzCoffee.Machines
             CoffeePowder = coffeePowder;
             Milk = milk;
             Sugar = sugar;
-            _HotDrinks = hotDrinks;
-            _Money = 0;
+            _hotDrinks = hotDrinks;
+            _money = 0;
         }
 
         public void GetHotDrink()
@@ -45,11 +45,11 @@ namespace DzCoffee.Machines
         {
             Console.WriteLine("Меню горячих напитков");
 
-            for (int i = 0; i < _HotDrinks.Count; i++)
+            for (int i = 0; i < _hotDrinks.Count; i++)
             {
                 Console.WriteLine($"Напиток #{i + 1}");
 
-                _HotDrinks[i].PrintDrink();
+                _hotDrinks[i].PrintDrink();
             }
 
             Console.WriteLine("Выбери напиток, написав циферку");
@@ -60,12 +60,14 @@ namespace DzCoffee.Machines
             int numOfChoicedHotDrink = Convert.ToInt32(Console.ReadLine()) - 1;
 
             if (numOfChoicedHotDrink < 0
-                || numOfChoicedHotDrink > _HotDrinks.Count - 1)
+                || numOfChoicedHotDrink > _hotDrinks.Count - 1)
             {
                 throw new Exception("Неверный выбор напитка");
             }
-
-            return numOfChoicedHotDrink;
+            else
+            {
+                return numOfChoicedHotDrink;
+            }
         }
 
         private double EnterMoney()
@@ -79,33 +81,37 @@ namespace DzCoffee.Machines
 
         private void PayForHotDrink(int numOfHotDrink, double money)
         {
-            if (money < _HotDrinks[numOfHotDrink].Price)
+            if (money < _hotDrinks[numOfHotDrink].Price)
             {
                 throw new Exception("Ты слишком бедный");
             }
-
-            _Money += money;
+            else
+            {
+                _money += money;
+            }
         }
 
         private void MakeHotDrink(int numOfHotDrink)
         {
-            if (Water - _HotDrinks[numOfHotDrink].WaterNeeded < 0
-                || CoffeePowder - _HotDrinks[numOfHotDrink].CoffeePowderNeeded < 0
-                || Milk - _HotDrinks[numOfHotDrink].MilkNeeded < 0
-                || Sugar - _HotDrinks[numOfHotDrink].SugarNeeded < 0)
+            if (Water - _hotDrinks[numOfHotDrink].WaterNeeded < 0
+                || CoffeePowder - _hotDrinks[numOfHotDrink].CoffeePowderNeeded < 0
+                || Milk - _hotDrinks[numOfHotDrink].MilkNeeded < 0
+                || Sugar - _hotDrinks[numOfHotDrink].SugarNeeded < 0)
             {
-                throw new Exception($"Аппарат не приготовит тебе {_HotDrinks[numOfHotDrink].Name}");
+                throw new Exception($"Аппарат не приготовит тебе {_hotDrinks[numOfHotDrink].Name}");
             }
-
-            Water -= _HotDrinks[numOfHotDrink].WaterNeeded;
-            CoffeePowder -= _HotDrinks[numOfHotDrink].CoffeePowderNeeded;
-            Milk -= _HotDrinks[numOfHotDrink].MilkNeeded;
-            Sugar -= _HotDrinks[numOfHotDrink].SugarNeeded;
+            else
+            {
+                Water -= _hotDrinks[numOfHotDrink].WaterNeeded;
+                CoffeePowder -= _hotDrinks[numOfHotDrink].CoffeePowderNeeded;
+                Milk -= _hotDrinks[numOfHotDrink].MilkNeeded;
+                Sugar -= _hotDrinks[numOfHotDrink].SugarNeeded;
+            }
         }
 
         private void CompleteHotDrink(int numOfHotDrink)
         {
-            Console.WriteLine($"Ваш {_HotDrinks[numOfHotDrink].Name} готов!!!!");
+            Console.WriteLine($"Ваш {_hotDrinks[numOfHotDrink].Name} готов!!!!");
             Console.WriteLine();
         }
     }
