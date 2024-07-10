@@ -2,28 +2,24 @@
 
 namespace DzCoffee.Machines
 {
-    public class CoffeeMachine
+    public class CoffeeMachine : Machine
     {
-        public string Name { get; set; }
+        public double Water { get; set; }
 
-        public string Address { get; set; }
+        public double CoffeePowder { get; set; }
 
-        public double Water { get; private set; }
+        public double Milk { get; set; }
 
-        public double CoffeePowder { get; private set; }
-
-        public double Milk { get; private set; }
-
-        public int Sugar { get; private set; }
+        public int Sugar { get; set; }
 
         private Dictionary<string, HotDrink> _hotDrinks;
 
         private double _money;
 
-        public CoffeeMachine(string name, string address, double water, double coffeePowder, double milk, int sugar, Dictionary<string, HotDrink> hotDrinks)
+        public CoffeeMachine(string name, string address, double water, double coffeePowder, double milk,
+            int sugar, Dictionary<string, HotDrink> hotDrinks)
+            : base(name, address)
         {
-            Name = name;
-            Address = address;
             Water = water;
             CoffeePowder = coffeePowder;
             Milk = milk;
@@ -32,7 +28,7 @@ namespace DzCoffee.Machines
             _money = 0;
         }
 
-        public void GetHotDrink()
+        public override void GetDrink()
         {
             PrintHotDrinksList();
 

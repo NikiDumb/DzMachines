@@ -11,11 +11,39 @@ namespace DzCoffee
         {
             CoffeeReceipesDataManager HotDataManager = new CoffeeReceipesDataManager("Data/coffeeReceipes");
 
-            //HotDataManager.AddReceipe(HotDataManager.WriteReceipe());
-
             Dictionary<string, HotDrink> hotDrinks = HotDataManager.ReturnReceipesDict();
 
-            CoffeeMachine CoffeeMachineFirst = new CoffeeMachine("Максемка", "Пионерская", 100, 100, 100, 100, hotDrinks);
+            //HotDataManager.AddReceipe(HotDataManager.WriteReceipe());
+
+            DrinksMachinesManager HotManager = new DrinksMachinesManager()
+            {
+                Machines = new List<Machine> 
+                {
+                    new CoffeeMachine
+                    (
+                        "Максем",
+                        "Пионерская",
+                        100,
+                        100,
+                        100,
+                        100,
+                        hotDrinks
+                    ),
+
+                    new CoffeeMachine
+                    (
+                        "Боба",
+                        "Автово",
+                        10,
+                        10,
+                        1,
+                        1,
+                        hotDrinks
+                    ),
+                },
+
+                ErrorsWriter = new ErrorsDataManager("Data/hotErrors")
+            };
 
 
             ColdDrinksDataManager ColdDataManager = new ColdDrinksDataManager("Data/coldDrinks");
@@ -24,19 +52,25 @@ namespace DzCoffee
 
             Dictionary<string, ColdDrink> coldDrinks = ColdDataManager.ReturnDrinksDict();
 
-            ColdDrinksMachine ColdDrinksMachineFirst = new ColdDrinksMachine("Артурка", "Дыбенко", coldDrinks);
-            ColdDrinksMachine ColdDrinksMachineSecond = new ColdDrinksMachine("Боба", "бенко", coldDrinks);
-
-            ErrorsDataManager ColdErrorsManager = new ErrorsDataManager("Data/coldErrors");
-
-            ColdDrinksMachinesManager ColdManager = new ColdDrinksMachinesManager()
+            DrinksMachinesManager ColdManager = new DrinksMachinesManager()
             {
-                Machines = new List<ColdDrinksMachine>()
+                Machines = new List<Machine>()
                 {
-                    ColdDrinksMachineFirst,
-                    ColdDrinksMachineSecond
+                    new ColdDrinksMachine
+                    (
+                        "Артурка",
+                        "Дыбенко",
+                        coldDrinks
+                        ),
+                    new ColdDrinksMachine
+                    (
+                        "Лупа",
+                        "бенко",
+                        coldDrinks
+                        )
                 },
-                ErrorsWriter = ColdErrorsManager
+
+                ErrorsWriter = new ErrorsDataManager("Data/coldErrors")
             };
             
             while (true)
@@ -50,27 +84,19 @@ namespace DzCoffee
                 Console.WriteLine();
                 Console.WriteLine();
                 ColdManager.PrintInfo();
+                //Console.WriteLine();
+                //Console.WriteLine();
+                //Console.WriteLine();
+                //HotManager.PrintInfo();
+                //Console.WriteLine();
+                //Console.WriteLine();
+                //Console.WriteLine();
+                //HotManager.RunMachines();
+                //Console.WriteLine();
+                //Console.WriteLine();
+                //Console.WriteLine();
+                //HotManager.PrintInfo();
             }
-
-            //while (true)
-            //{
-            //    try
-            //    {
-            //        CoffeeMachineFirst.GetHotDrink();
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine($"Беда в кофейном автомате {e.Message}");
-            //    }
-            //    try
-            //    {
-            //        ColdDrinksMachineFirst.GetColdDrink();
-            //    }
-            //    catch (Exception e)
-            //    {
-            //        Console.WriteLine($"Беда в газировочном автомате {e.Message}");
-            //    }
-            //}
         }
     }
 }

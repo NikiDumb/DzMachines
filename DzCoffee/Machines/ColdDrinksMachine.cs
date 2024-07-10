@@ -2,25 +2,20 @@
 
 namespace DzCoffee.Machines
 {
-    public class ColdDrinksMachine
+    public class ColdDrinksMachine : Machine
     {
-        public string Name { get; set; }
-
-        public string Address { get; set; }
-
         private Dictionary<string, ColdDrink> _coldDrinks;
 
         public double Money { get; set; }
 
         public ColdDrinksMachine(string name, string address, Dictionary<string, ColdDrink> coldDrinks)
+            : base(name, address)
         {
-            Name = name;
-            Address = address;
             _coldDrinks = coldDrinks;
             Money = 0;
         }
 
-        public void GetColdDrink()
+        public override void GetDrink()
         {
             PrintColdDrinksList();
 

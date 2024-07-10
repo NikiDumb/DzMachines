@@ -4,24 +4,24 @@ using DzCoffee.Machines;
 
 namespace DzCoffee.MachineManager
 {
-    public class ColdDrinksMachinesManager
+    public class DrinksMachinesManager
     {
-        public List<ColdDrinksMachine> Machines { get; set; }
+        public List<Machine> Machines { get; set; }
 
         public ErrorsDataManager ErrorsWriter { get; set; }
 
         public void RunMachines()
         {
-            try
+            foreach (var machine in Machines)
             {
-                foreach (var machine in Machines)
+                try
                 {
-                    machine.GetColdDrink();
+                    machine.GetDrink();
                 }
-            }
-            catch (Exception e)
-            {
-                ErrorsWriter.WriteToFile(e.Message);
+                catch (Exception e)
+                {
+                    ErrorsWriter.WriteToFile(e.Message);
+                }
             }
         }
 
