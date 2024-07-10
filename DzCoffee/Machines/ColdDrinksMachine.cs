@@ -2,16 +2,22 @@
 
 namespace DzCoffee.Machines
 {
-    internal class ColdDrinksMachine
+    public class ColdDrinksMachine
     {
+        public string Name { get; set; }
+
+        public string Address { get; set; }
+
         private Dictionary<string, ColdDrink> _coldDrinks;
 
-        private double _money;
+        public double Money { get; set; }
 
-        public ColdDrinksMachine(Dictionary<string, ColdDrink> coldDrinks)
+        public ColdDrinksMachine(string name, string address, Dictionary<string, ColdDrink> coldDrinks)
         {
+            Name = name;
+            Address = address;
             _coldDrinks = coldDrinks;
-            _money = 0;
+            Money = 0;
         }
 
         public void GetColdDrink()
@@ -52,7 +58,8 @@ namespace DzCoffee.Machines
         {
             if (!_coldDrinks.ContainsKey(drinkName))
             {
-                throw new Exception("Неверный выбор напитка");
+                Console.WriteLine("Неверный выбор напитка");
+                throw new Exception($"Автомат газировок {Name} {Address}! Беда: Неверный выбор напитка");
             }
         }
 
@@ -69,11 +76,12 @@ namespace DzCoffee.Machines
         {
             if (money < _coldDrinks[drinkName].Price)
             {
-                throw new Exception("Ты слишком бедный");
+                Console.WriteLine("Ты слишком бедный");
+                throw new Exception($"Автомат газировок {Name} {Address}! Беда: Пришел бедняк");
             }
             else
             {
-                _money += money;
+                Money += money;
             }
         }
 
@@ -81,7 +89,8 @@ namespace DzCoffee.Machines
         {
             if (_coldDrinks[drinkName].Count < 1)
             {
-                throw new Exception($"Аппарат не выдаст тебе {_coldDrinks[drinkName].Name}");
+                Console.WriteLine($"Аппарат не выдаст тебе {_coldDrinks[drinkName].Name}");
+                throw new Exception($"Автомат газировок {Name} {Address}! Беда: {_coldDrinks[drinkName].Name} кончился!!");
             }
             else
             {

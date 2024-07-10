@@ -4,6 +4,10 @@ namespace DzCoffee.Machines
 {
     public class CoffeeMachine
     {
+        public string Name { get; set; }
+
+        public string Address { get; set; }
+
         public double Water { get; private set; }
 
         public double CoffeePowder { get; private set; }
@@ -16,8 +20,10 @@ namespace DzCoffee.Machines
 
         private double _money;
 
-        public CoffeeMachine(double water, double coffeePowder, double milk, int sugar, Dictionary<string, HotDrink> hotDrinks)
+        public CoffeeMachine(string name, string address, double water, double coffeePowder, double milk, int sugar, Dictionary<string, HotDrink> hotDrinks)
         {
+            Name = name;
+            Address = address;
             Water = water;
             CoffeePowder = coffeePowder;
             Milk = milk;
@@ -64,7 +70,8 @@ namespace DzCoffee.Machines
         {
             if (!_hotDrinks.ContainsKey(drinkName))
             {
-                throw new Exception("Неверный выбор напитка");
+                Console.WriteLine("Неверный выбор напитка");
+                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Неверный выбор напитка");
             }
         }
 
@@ -81,7 +88,8 @@ namespace DzCoffee.Machines
         {
             if (money < _hotDrinks[drinkName].Price)
             {
-                throw new Exception("Ты слишком бедный");
+                Console.WriteLine("Ты слишком бедный");
+                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Пришел бедняк");
             }
             else
             {
@@ -97,7 +105,8 @@ namespace DzCoffee.Machines
                 || Milk - crntDrink.MilkNeeded < 0
                 || Sugar - crntDrink.SugarNeeded < 0)
             {
-                throw new Exception($"Аппарат не приготовит тебе {crntDrink.Name}");
+                Console.WriteLine($"Аппарат не приготовит тебе {crntDrink.Name}");
+                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Кофе {CoffeePowder} Вода {Water} Молоко {Milk} Сахар {Sugar}");
             }
             else
             {

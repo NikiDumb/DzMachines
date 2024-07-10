@@ -1,5 +1,6 @@
 ﻿using DzCoffee.DataManager;
 using DzCoffee.Drinks;
+using DzCoffee.MachineManager;
 using DzCoffee.Machines;
 
 namespace DzCoffee
@@ -8,42 +9,68 @@ namespace DzCoffee
     {
         static void Main(string[] args)
         {
-            CoffeeReceipesDataManager hotManager = new CoffeeReceipesDataManager("Data/coffeeReceipes");
+            CoffeeReceipesDataManager HotDataManager = new CoffeeReceipesDataManager("Data/coffeeReceipes");
 
-            hotManager.AddReceipe(hotManager.WriteReceipe());
+            //HotDataManager.AddReceipe(HotDataManager.WriteReceipe());
 
-            Dictionary<string, HotDrink> hotDrinks = hotManager.ReturnReceipesDict();
+            Dictionary<string, HotDrink> hotDrinks = HotDataManager.ReturnReceipesDict();
 
-            CoffeeMachine CoffeeMachineFirst = new CoffeeMachine(100, 100, 100, 100, hotDrinks);
+            CoffeeMachine CoffeeMachineFirst = new CoffeeMachine("Максемка", "Пионерская", 100, 100, 100, 100, hotDrinks);
 
 
-            ColdDrinksDataManager coldManager = new ColdDrinksDataManager("Data/coldDrinks");
+            ColdDrinksDataManager ColdDataManager = new ColdDrinksDataManager("Data/coldDrinks");
 
-            coldManager.AddDrink(coldManager.WriteParameters());
+            //ColdDataManager.AddDrink(ColdDataManager.WriteParameters());
 
-            Dictionary<string, ColdDrink> coldDrinks = coldManager.ReturnDrinksDict();
+            Dictionary<string, ColdDrink> coldDrinks = ColdDataManager.ReturnDrinksDict();
 
-            ColdDrinksMachine ColdDrinksMachineFirst = new ColdDrinksMachine(coldDrinks);
+            ColdDrinksMachine ColdDrinksMachineFirst = new ColdDrinksMachine("Артурка", "Дыбенко", coldDrinks);
+            ColdDrinksMachine ColdDrinksMachineSecond = new ColdDrinksMachine("Боба", "бенко", coldDrinks);
 
+            ErrorsDataManager ColdErrorsManager = new ErrorsDataManager("Data/coldErrors");
+
+            ColdDrinksMachinesManager ColdManager = new ColdDrinksMachinesManager()
+            {
+                Machines = new List<ColdDrinksMachine>()
+                {
+                    ColdDrinksMachineFirst,
+                    ColdDrinksMachineSecond
+                },
+                ErrorsWriter = ColdErrorsManager
+            };
+            
             while (true)
             {
-                try
-                {
-                    CoffeeMachineFirst.GetHotDrink();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Беда в кофейном автомате {e.Message}");
-                }
-                try
-                {
-                    ColdDrinksMachineFirst.GetColdDrink();
-                }
-                catch (Exception e)
-                {
-                    Console.WriteLine($"Беда в газировочном автомате {e.Message}");
-                }
+                ColdManager.PrintInfo();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                ColdManager.RunMachines();
+                Console.WriteLine();
+                Console.WriteLine();
+                Console.WriteLine();
+                ColdManager.PrintInfo();
             }
+
+            //while (true)
+            //{
+            //    try
+            //    {
+            //        CoffeeMachineFirst.GetHotDrink();
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine($"Беда в кофейном автомате {e.Message}");
+            //    }
+            //    try
+            //    {
+            //        ColdDrinksMachineFirst.GetColdDrink();
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Console.WriteLine($"Беда в газировочном автомате {e.Message}");
+            //    }
+            //}
         }
     }
 }

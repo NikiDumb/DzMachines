@@ -3,7 +3,7 @@ using System.Text.Json;
 
 namespace DzCoffee.DataManager
 {
-    internal class ColdDrinksDataManager
+    public class ColdDrinksDataManager
     {
         public string DrinksJSON { get; set; }
 

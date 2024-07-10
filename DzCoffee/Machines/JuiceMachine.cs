@@ -2,7 +2,7 @@
 
 namespace DzCoffee.Machines
 {
-    internal class JuiceMachine
+    public class JuiceMachine
     {
         public List<Orange> Oranges { get; set; }
 
