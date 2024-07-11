@@ -54,7 +54,7 @@ namespace DzCoffee.Machines
             if (!_coldDrinks.ContainsKey(drinkName))
             {
                 Console.WriteLine("Неверный выбор напитка");
-                throw new Exception($"Автомат газировок {Name} {Address}! Беда: Неверный выбор напитка");
+                throw new Exception("");
             }
         }
 
@@ -72,7 +72,7 @@ namespace DzCoffee.Machines
             if (money < _coldDrinks[drinkName].Price)
             {
                 Console.WriteLine("Ты слишком бедный");
-                throw new Exception($"Автомат газировок {Name} {Address}! Беда: Пришел бедняк");
+                throw new Exception("");
             }
             else
             {
@@ -82,16 +82,17 @@ namespace DzCoffee.Machines
 
         private void MakeColdDrink(string drinkName)
         {
-            if (_coldDrinks[drinkName].Count < 1)
+            ColdDrink crntDrink = _coldDrinks[drinkName];
+            if (crntDrink.Count < 1)
             {
-                Console.WriteLine($"Аппарат не выдаст тебе {_coldDrinks[drinkName].Name}");
-                throw new Exception($"Автомат газировок {Name} {Address}! Беда: {_coldDrinks[drinkName].Name} кончился!!");
+                Console.WriteLine($"Аппарат не выдаст тебе {crntDrink.Name}");
+                throw new Exception($"Автомат газировок {Name} {Address}! Беда: {crntDrink.Name} кончился!!");
             }
             else
             {
-                _coldDrinks[drinkName].Count -= 1;
+                crntDrink.Count -= 1;
 
-                Console.WriteLine($"Ваш {_coldDrinks[drinkName].Name} выдан!!!!");
+                Console.WriteLine($"Ваш {crntDrink.Name} выдан!!!!");
                 Console.WriteLine();
             }
         }

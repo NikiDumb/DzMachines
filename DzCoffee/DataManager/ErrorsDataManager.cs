@@ -1,5 +1,4 @@
-﻿
-namespace DzCoffee.DataManager
+﻿namespace DzCoffee.DataManager
 {
     public class ErrorsDataManager
     {
@@ -40,11 +39,22 @@ namespace DzCoffee.DataManager
 
         public void WriteToFile(string error)
         {
-            GetErrorsJSON();
-            ErrorsJSON += error;
+            if (error != "")
+            {
+                GetErrorsJSON();
+                ErrorsJSON += error;
 
+                StreamWriter writer = new StreamWriter(_filePath);
+                writer.WriteLine(ErrorsJSON);
+                writer.Close();
+            }
+        }
+
+        public void ClearErrors()
+        {
             StreamWriter writer = new StreamWriter(_filePath);
-            writer.WriteLine(ErrorsJSON);
+
+            writer.Write("");
             writer.Close();
         }
 

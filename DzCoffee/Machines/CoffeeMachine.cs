@@ -67,7 +67,7 @@ namespace DzCoffee.Machines
             if (!_hotDrinks.ContainsKey(drinkName))
             {
                 Console.WriteLine("Неверный выбор напитка");
-                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Неверный выбор напитка");
+                throw new Exception("");
             }
         }
 
@@ -85,7 +85,7 @@ namespace DzCoffee.Machines
             if (money < _hotDrinks[drinkName].Price)
             {
                 Console.WriteLine("Ты слишком бедный");
-                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Пришел бедняк");
+                throw new Exception("");
             }
             else
             {
@@ -102,7 +102,7 @@ namespace DzCoffee.Machines
                 || Sugar - crntDrink.SugarNeeded < 0)
             {
                 Console.WriteLine($"Аппарат не приготовит тебе {crntDrink.Name}");
-                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Кофе {CoffeePowder} Вода {Water} Молоко {Milk} Сахар {Sugar}");
+                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Напиток {crntDrink.Name} кончился Кофе {CoffeePowder} Вода {Water} Молоко {Milk} Сахар {Sugar}");
             }
             else
             {

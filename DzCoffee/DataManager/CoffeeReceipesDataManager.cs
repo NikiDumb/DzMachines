@@ -56,7 +56,7 @@ namespace DzCoffee.DataManager
             Dictionary<string, HotDrink> hotDrinksDict = new Dictionary<string, HotDrink>();
             List<HotDrink> hotDrinks = ReadFile();
 
-            foreach(HotDrink drink in hotDrinks)
+            foreach (HotDrink drink in hotDrinks)
             {
                 hotDrinksDict.Add(drink.Name, drink);
             }
@@ -71,7 +71,7 @@ namespace DzCoffee.DataManager
 
             Console.Write("Название: ");
             string name = Console.ReadLine();
-            ingredients.Add("name",name);
+            ingredients.Add("name", name);
 
             Console.Write("Сколько водички: ");
             string water = Console.ReadLine();
@@ -79,7 +79,7 @@ namespace DzCoffee.DataManager
 
             Console.Write("Сколько кофе: ");
             string coffee = Console.ReadLine();
-            ingredients.Add("coffee", coffee );
+            ingredients.Add("coffee", coffee);
 
             Console.Write("Сколько молока: ");
             string milk = Console.ReadLine();
@@ -87,7 +87,7 @@ namespace DzCoffee.DataManager
 
             Console.Write("Сколько сахара: ");
             string sugar = Console.ReadLine();
-            ingredients.Add("sugar", sugar );
+            ingredients.Add("sugar", sugar);
 
             Console.Write("Сколько стоит: ");
             string price = Console.ReadLine();
@@ -115,7 +115,7 @@ namespace DzCoffee.DataManager
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Насрал в консоль { ex.ToString()}");
+                Console.WriteLine($"Насрал в консоль {ex.ToString()}");
             }
         }
         private void WriteToFile()
@@ -126,7 +126,7 @@ namespace DzCoffee.DataManager
 
             StreamWriter writer = new StreamWriter(_filePath);
 
-            writer.Write(JsonSerializer.Serialize<List<HotDrink>>(receipesBuffer));
+            writer.Write(JsonSerializer.Serialize(receipesBuffer));
             writer.Close();
         }
     }

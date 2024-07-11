@@ -1,4 +1,5 @@
 ﻿using DzCoffee.DataManager;
+using DzCoffee.DataManager;
 using DzCoffee.Drinks;
 using DzCoffee.MachineManager;
 using DzCoffee.Machines;
@@ -15,10 +16,30 @@ namespace DzCoffee
 
             //HotDataManager.AddReceipe(HotDataManager.WriteReceipe());
 
-            DrinksMachinesManager HotManager = new DrinksMachinesManager()
+            ColdDrinksDataManager ColdDataManager = new ColdDrinksDataManager("Data/coldDrinks");
+
+            //ColdDataManager.AddDrink(ColdDataManager.WriteParameters());
+
+            Dictionary<string, ColdDrink> coldDrinks = ColdDataManager.ReturnDrinksDict();
+
+            DrinksMachinesManager MachinesManager = new DrinksMachinesManager()
             {
-                Machines = new List<Machine> 
+                Machines = new List<Machine>()
                 {
+                    new ColdDrinksMachine
+                    (
+                        "Артурка",
+                        "Дыбенко",
+                        coldDrinks
+                        ),
+
+                    new ColdDrinksMachine
+                    (
+                        "Лупа",
+                        "бенко",
+                        coldDrinks
+                        ),
+
                     new CoffeeMachine
                     (
                         "Максем",
@@ -39,63 +60,22 @@ namespace DzCoffee
                         1,
                         1,
                         hotDrinks
-                    ),
+                    )
                 },
 
-                ErrorsWriter = new ErrorsDataManager("Data/hotErrors")
-            };
-
-
-            ColdDrinksDataManager ColdDataManager = new ColdDrinksDataManager("Data/coldDrinks");
-
-            //ColdDataManager.AddDrink(ColdDataManager.WriteParameters());
-
-            Dictionary<string, ColdDrink> coldDrinks = ColdDataManager.ReturnDrinksDict();
-
-            DrinksMachinesManager ColdManager = new DrinksMachinesManager()
-            {
-                Machines = new List<Machine>()
-                {
-                    new ColdDrinksMachine
-                    (
-                        "Артурка",
-                        "Дыбенко",
-                        coldDrinks
-                        ),
-                    new ColdDrinksMachine
-                    (
-                        "Лупа",
-                        "бенко",
-                        coldDrinks
-                        )
-                },
-
-                ErrorsWriter = new ErrorsDataManager("Data/coldErrors")
+                ErrorsWriter = new ErrorsDataManager("Data/MachineErrors")
             };
             
             while (true)
             {
-                ColdManager.PrintInfo();
+                MachinesManager.PrintInfo();
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
-                ColdManager.RunMachines();
+                MachinesManager.RunMachines();
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
-                ColdManager.PrintInfo();
-                //Console.WriteLine();
-                //Console.WriteLine();
-                //Console.WriteLine();
-                //HotManager.PrintInfo();
-                //Console.WriteLine();
-                //Console.WriteLine();
-                //Console.WriteLine();
-                //HotManager.RunMachines();
-                //Console.WriteLine();
-                //Console.WriteLine();
-                //Console.WriteLine();
-                //HotManager.PrintInfo();
             }
         }
     }

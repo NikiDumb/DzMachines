@@ -111,7 +111,7 @@ namespace DzCoffee.DataManager
 
             StreamWriter writer = new StreamWriter(_filePath);
 
-            writer.Write(JsonSerializer.Serialize<List<ColdDrink>>(parametersBuffer));
+            writer.Write(JsonSerializer.Serialize(parametersBuffer));
             writer.Close();
         }
     }

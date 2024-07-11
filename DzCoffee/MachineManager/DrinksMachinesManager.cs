@@ -1,5 +1,4 @@
-﻿
-using DzCoffee.DataManager;
+﻿using DzCoffee.DataManager;
 using DzCoffee.Machines;
 
 namespace DzCoffee.MachineManager
