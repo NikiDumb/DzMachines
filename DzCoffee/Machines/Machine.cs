@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace DzCoffee.Machines
 {
     public abstract class Machine
@@ -12,12 +7,17 @@ namespace DzCoffee.Machines
 
         public string Address { get; set; }
 
+        public bool isBroken { get; set; }
+
         public Machine(string name, string address) 
         {
             Name = name;
             Address = address;
+            isBroken = false;
         }
 
         public abstract void GetDrink();
+
+        public abstract void ReloadMachineStocks();
     }
 }

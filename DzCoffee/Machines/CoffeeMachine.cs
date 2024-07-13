@@ -43,6 +43,14 @@ namespace DzCoffee.Machines
             MakeHotDrink(nameOfChoicedHotDrink);
         }
 
+        public override void ReloadMachineStocks()
+        {
+            Water = 200;
+            CoffeePowder = 200;
+            Milk = 200;
+            Sugar = 35;
+        }
+
         private void PrintHotDrinksList()
         {
             Console.WriteLine("Меню горячих напитков");
@@ -70,7 +78,6 @@ namespace DzCoffee.Machines
                 throw new Exception("");
             }
         }
-
         private double EnterMoney()
         {
             Console.WriteLine("Карту с баблом запихивай и спишем деняк сколько скажешь");
@@ -101,6 +108,8 @@ namespace DzCoffee.Machines
                 || Milk - crntDrink.MilkNeeded < 0
                 || Sugar - crntDrink.SugarNeeded < 0)
             {
+                isBroken = true;
+
                 Console.WriteLine($"Аппарат не приготовит тебе {crntDrink.Name}");
                 throw new Exception($"Автомат кофе {Name} {Address}! Беда: Напиток {crntDrink.Name} кончился Кофе {CoffeePowder} Вода {Water} Молоко {Milk} Сахар {Sugar}");
             }

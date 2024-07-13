@@ -4,6 +4,8 @@ namespace DzCoffee.Machines
 {
     public class ColdDrinksMachine : Machine
     {
+        public Dictionary<string, int> CountsOfColdDrinks { get; set; }
+
         private Dictionary<string, ColdDrink> _coldDrinks;
 
         public double Money { get; set; }
@@ -28,6 +30,21 @@ namespace DzCoffee.Machines
             PayForColdDrink(nameOfChoicedColdDrink, enteredMoney);
 
             MakeColdDrink(nameOfChoicedColdDrink);
+        }
+
+        public override void ReloadMachineStocks()
+        {
+            for (int i = _coldDrinks.Count - 1; i >= 0; i--)
+            {
+                KeyValuePair<string, ColdDrink> drink = _coldDrinks.ElementAt(i);
+
+                int countOfDrink = drink.Value.Count;
+
+                if (countOfDrink == 0)
+                {
+                    drink.Value.Count = 6;
+                }
+            }
         }
 
         private void PrintColdDrinksList()
@@ -85,6 +102,8 @@ namespace DzCoffee.Machines
             ColdDrink crntDrink = _coldDrinks[drinkName];
             if (crntDrink.Count < 1)
             {
+                isBroken = true;
+
                 Console.WriteLine($"Аппарат не выдаст тебе {crntDrink.Name}");
                 throw new Exception($"Автомат газировок {Name} {Address}! Беда: {crntDrink.Name} кончился!!");
             }

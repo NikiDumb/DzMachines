@@ -1,5 +1,4 @@
 ﻿using DzCoffee.DataManager;
-using DzCoffee.DataManager;
 using DzCoffee.Drinks;
 using DzCoffee.MachineManager;
 using DzCoffee.Machines;
@@ -21,6 +20,8 @@ namespace DzCoffee
             //ColdDataManager.AddDrink(ColdDataManager.WriteParameters());
 
             Dictionary<string, ColdDrink> coldDrinks = ColdDataManager.ReturnDrinksDict();
+
+            List<Orange> oranges = new List<Orange>() { };
 
             DrinksMachinesManager MachinesManager = new DrinksMachinesManager()
             {
@@ -60,6 +61,12 @@ namespace DzCoffee
                         1,
                         1,
                         hotDrinks
+                    ),
+
+                    new JuiceMachine
+                    (
+                        "ЕГОРКА",
+                        "Спасская"
                     )
                 },
 
@@ -69,10 +76,13 @@ namespace DzCoffee
             while (true)
             {
                 MachinesManager.PrintInfo();
+
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();
+                
                 MachinesManager.RunMachines();
+                
                 Console.WriteLine();
                 Console.WriteLine();
                 Console.WriteLine();

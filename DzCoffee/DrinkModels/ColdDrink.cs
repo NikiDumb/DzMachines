@@ -9,10 +9,5 @@
         {
             Count = count;
         }
-
-        public void AddDrinkCount(int count)
-        {
-            Count += count;
-        }
     }
 }
