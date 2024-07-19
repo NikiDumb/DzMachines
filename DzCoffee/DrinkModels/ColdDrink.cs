@@ -1,6 +1,6 @@
 ﻿namespace DzCoffee.Drinks
 {
-    public class ColdDrink : Drink
+    public class ColdDrink : AbstractDrink
     {
         public int Count { get; set; }
 

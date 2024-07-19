@@ -7,13 +7,13 @@ namespace DzCoffee.DataManager
     {
         public string DrinksJSON { get; set; }
 
-        public List<ColdDrink> Drinks { get; set; }
+        public List<AbstractDrink> Drinks { get; set; }
 
         private string _filePath;
 
         public ColdDrinksDataManager(string filePath)
         {
-            Drinks = new List<ColdDrink>();
+            Drinks = new List<AbstractDrink>();
 
             DrinksJSON = "";
 
@@ -35,9 +35,9 @@ namespace DzCoffee.DataManager
             }
         }
 
-        public List<ColdDrink> ReadFile()
+        public List<AbstractDrink> ReadFile()
         {
-            List<ColdDrink> drinksBuffer = new List<ColdDrink>();
+            List<AbstractDrink> drinksBuffer = new List<AbstractDrink>();
 
             StreamReader reader = new StreamReader(_filePath);
             DrinksJSON = reader.ReadToEnd();
@@ -45,18 +45,18 @@ namespace DzCoffee.DataManager
 
             if (DrinksJSON != "")
             {
-                drinksBuffer = JsonSerializer.Deserialize<List<ColdDrink>>(DrinksJSON);
+                drinksBuffer = JsonSerializer.Deserialize<List<AbstractDrink>>(DrinksJSON);
             }
 
             return drinksBuffer;
         }
 
-        public Dictionary<string, ColdDrink> ReturnDrinksDict()
+        public Dictionary<string, AbstractDrink> ReturnDrinksDict()
         {
-            Dictionary<string, ColdDrink> coldDrinksDict = new Dictionary<string, ColdDrink>();
-            List<ColdDrink> coldDrinks = ReadFile();
+            Dictionary<string, AbstractDrink> coldDrinksDict = new Dictionary<string, AbstractDrink>();
+            List<AbstractDrink> coldDrinks = ReadFile();
 
-            foreach (ColdDrink drink in coldDrinks)
+            foreach (AbstractDrink drink in coldDrinks)
             {
                 coldDrinksDict.Add(drink.Name, drink);
             }
@@ -73,10 +73,6 @@ namespace DzCoffee.DataManager
             string name = Console.ReadLine();
             parameters.Add("name", name);
 
-            Console.Write("Сколько бутылок принес: ");
-            string count = Console.ReadLine();
-            parameters.Add("count", count);
-
             Console.Write("Сколько стоит: ");
             string price = Console.ReadLine();
             parameters.Add("price", price);
@@ -88,10 +84,9 @@ namespace DzCoffee.DataManager
         {
             try
             {
-                ColdDrink coldDrink = new ColdDrink(
+                AbstractDrink coldDrink = new AbstractDrink(
                     parameters["name"],
-                    Convert.ToDouble(parameters["price"]),
-                    Convert.ToInt32(parameters["count"])
+                    Convert.ToDouble(parameters["price"])
                     );
 
                 Drinks.Add(coldDrink);
@@ -105,7 +100,7 @@ namespace DzCoffee.DataManager
         }
         private void WriteToFile()
         {
-            List<ColdDrink> parametersBuffer = ReadFile();
+            List<AbstractDrink> parametersBuffer = ReadFile();
 
             parametersBuffer.AddRange(Drinks);
 

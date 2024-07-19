@@ -7,7 +7,7 @@ namespace DzCoffee.MachineManager
 {
     public class DrinksMachinesManager
     {
-        public List<Machines.Machine> Machines { get; set; }
+        public List<Machines.AbstractMachine> Machines { get; set; }
 
         public ErrorsDataManager ErrorsWriter { get; set; }
 
@@ -33,27 +33,29 @@ namespace DzCoffee.MachineManager
 
         public void SolveError()
         {
-            Dictionary<string, Machines.Machine> brokenMachines = PrintBrokenMachines();
+            Dictionary<string, Machines.AbstractMachine> brokenMachines = PrintBrokenMachines();
+
             string solution = ChooseSolution();
+
             Repairs(solution, brokenMachines);
         }
 
-        public Dictionary<string, Machines.Machine> PrintBrokenMachines()
+        public Dictionary<string, Machines.AbstractMachine> PrintBrokenMachines()
         {
-            Dictionary<string, Machines.Machine> brokenMachines = new Dictionary<string, Machines.Machine>();
+            Dictionary<string, Machines.AbstractMachine> brokenMachines = new Dictionary<string, Machines.AbstractMachine>();
 
             foreach(var machine in Machines)
             {
                 if (machine.isBroken)
                 {
-                    Console.WriteLine($"{machine.Name} на {machine.Address} сломана((");
+                    Console.WriteLine($"system {machine.Name} на {machine.Address} сломана((");
 
                     brokenMachines.Add(machine.Name, machine);
                 }
             }
 
-            Console.WriteLine("Напиши БЕДА чтобы вызвать ремонтника на все адреса или ОДНО НАЗВАНИЕ чтобы вызвать ремонтника туда");
-            Console.WriteLine("Напиши что хочешь если тебе все равно");
+            Console.WriteLine("system Напиши БЕДА чтобы вызвать ремонтника на все адреса или ОДНО НАЗВАНИЕ чтобы вызвать ремонтника туда");
+            Console.WriteLine("system Напиши что хочешь если тебе все равно");
 
             return brokenMachines;
         }
@@ -65,7 +67,7 @@ namespace DzCoffee.MachineManager
             return solution;
         }
 
-        public void Repairs(string solution, Dictionary<string, Machines.Machine> machines)
+        public void Repairs(string solution, Dictionary<string, Machines.AbstractMachine> machines)
         {
             if (solution == "БЕДА")
             {
@@ -101,6 +103,7 @@ namespace DzCoffee.MachineManager
             {
                 Console.WriteLine($"{machine.Name} на {machine.Address}");
             }
+
             ErrorsWriter.GetErrorsJSON();
             PrintErrors();
         }

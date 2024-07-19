@@ -2,7 +2,7 @@
 
 namespace DzCoffee.Machines
 {
-    public class ColdDrinksMachine : Machine
+    public class ColdDrinksMachine : AbstractMachine
     {
         public Dictionary<string, int> CountsOfColdDrinks { get; set; }
 
@@ -10,10 +10,10 @@ namespace DzCoffee.Machines
 
         public double Money { get; set; }
 
-        public ColdDrinksMachine(string name, string address, Dictionary<string, ColdDrink> coldDrinks)
+        public ColdDrinksMachine(string name, string address, Dictionary<string, AbstractDrink> drinks)
             : base(name, address)
         {
-            _coldDrinks = coldDrinks;
+            _coldDrinks = _CreateColdDrinksDict(drinks);
             Money = 0;
         }
 
@@ -38,13 +38,23 @@ namespace DzCoffee.Machines
             {
                 KeyValuePair<string, ColdDrink> drink = _coldDrinks.ElementAt(i);
 
-                int countOfDrink = drink.Value.Count;
-
-                if (countOfDrink == 0)
+                if (drink.Value.Count == 0)
                 {
                     drink.Value.Count = 6;
                 }
             }
+        }
+
+        private Dictionary<string, ColdDrink> _CreateColdDrinksDict(Dictionary<string, AbstractDrink> drinks)
+        {
+            Dictionary<string, ColdDrink> coldDrinks = new Dictionary<string, ColdDrink>();
+
+            foreach (AbstractDrink drink in drinks.Values)
+            {
+                coldDrinks.Add(drink.Name, new ColdDrink(drink.Name, drink.Price, 0));
+            }
+            
+            return coldDrinks;
         }
 
         private void PrintColdDrinksList()

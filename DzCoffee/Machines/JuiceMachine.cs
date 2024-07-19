@@ -2,7 +2,7 @@
 
 namespace DzCoffee.Machines
 {
-    public class JuiceMachine : Machine
+    public class JuiceMachine : AbstractMachine
     {
         public List<Orange> Oranges { get; set; }
 

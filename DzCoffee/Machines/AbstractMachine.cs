@@ -1,7 +1,7 @@
 ﻿
 namespace DzCoffee.Machines
 {
-    public abstract class Machine
+    public abstract class AbstractMachine
     {
         public string Name { get; set; }
 
@@ -9,7 +9,7 @@ namespace DzCoffee.Machines
 
         public bool isBroken { get; set; }
 
-        public Machine(string name, string address) 
+        public AbstractMachine(string name, string address) 
         {
             Name = name;
             Address = address;

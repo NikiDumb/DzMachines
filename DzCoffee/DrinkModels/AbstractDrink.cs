@@ -1,12 +1,12 @@
 ﻿namespace DzCoffee.Drinks
 {
-    public class Drink
+    public class AbstractDrink
     {
         public string Name { get; set; }
 
         public double Price { get; set; }
 
-        public Drink(string name, double price)
+        public AbstractDrink(string name, double price)
         {
             Name = name;
             Price = price;

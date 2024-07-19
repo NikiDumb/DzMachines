@@ -2,7 +2,7 @@
 
 namespace DzCoffee.Machines
 {
-    public class CoffeeMachine : Machine
+    public class CoffeeMachine : AbstractMachine
     {
         public double Water { get; set; }
 

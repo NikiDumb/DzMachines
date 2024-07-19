@@ -19,26 +19,26 @@ namespace DzCoffee
 
             //ColdDataManager.AddDrink(ColdDataManager.WriteParameters());
 
-            Dictionary<string, ColdDrink> coldDrinks = ColdDataManager.ReturnDrinksDict();
+            Dictionary<string, AbstractDrink> drinks = ColdDataManager.ReturnDrinksDict();
 
             List<Orange> oranges = new List<Orange>() { };
 
             DrinksMachinesManager MachinesManager = new DrinksMachinesManager()
             {
-                Machines = new List<Machine>()
+                Machines = new List<AbstractMachine>()
                 {
                     new ColdDrinksMachine
                     (
                         "Артурка",
                         "Дыбенко",
-                        coldDrinks
+                        drinks
                         ),
 
                     new ColdDrinksMachine
                     (
                         "Лупа",
                         "бенко",
-                        coldDrinks
+                        drinks
                         ),
 
                     new CoffeeMachine

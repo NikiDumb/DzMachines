@@ -1,6 +1,6 @@
 ﻿namespace DzCoffee.Drinks
 {
-    public class HotDrink : Drink
+    public class HotDrink : AbstractDrink
     {
         public double WaterNeeded { get; set; }
 
