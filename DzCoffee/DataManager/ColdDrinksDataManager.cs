@@ -98,6 +98,7 @@ namespace DzCoffee.DataManager
                 Console.WriteLine($"Насрал в консоль {ex.ToString()}");
             }
         }
+
         private void WriteToFile()
         {
             List<AbstractDrink> parametersBuffer = ReadFile();

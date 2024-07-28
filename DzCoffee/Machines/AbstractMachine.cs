@@ -19,5 +19,17 @@ namespace DzCoffee.Machines
         public abstract void GetDrink();
 
         public abstract void ReloadMachineStocks();
+
+        public override string ToString()
+        {
+            return $"{Name} на {Address}";
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is AbstractMachine machine &&
+                   Name == machine.Name &&
+                   Address == machine.Address;
+        }
     }
 }

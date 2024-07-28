@@ -64,7 +64,6 @@ namespace DzCoffee.DataManager
             return hotDrinksDict;
         }
 
-
         public Dictionary<string, string> WriteReceipe()
         {
             Dictionary<string, string> ingredients = new Dictionary<string, string>();
@@ -118,6 +117,7 @@ namespace DzCoffee.DataManager
                 Console.WriteLine($"Насрал в консоль {ex.ToString()}");
             }
         }
+
         private void WriteToFile()
         {
             List<HotDrink> receipesBuffer = ReadFile();

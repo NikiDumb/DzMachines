@@ -13,7 +13,7 @@ namespace DzCoffee.Machines
         public ColdDrinksMachine(string name, string address, Dictionary<string, AbstractDrink> drinks)
             : base(name, address)
         {
-            _coldDrinks = _CreateColdDrinksDict(drinks);
+            _coldDrinks = new Dictionary<string, ColdDrink>(CreateColdDrinksDict(drinks));
             Money = 0;
         }
 
@@ -34,18 +34,18 @@ namespace DzCoffee.Machines
 
         public override void ReloadMachineStocks()
         {
-            for (int i = _coldDrinks.Count - 1; i >= 0; i--)
+            foreach (string key in _coldDrinks.Keys)
             {
-                KeyValuePair<string, ColdDrink> drink = _coldDrinks.ElementAt(i);
+                ColdDrink drink = _coldDrinks[key];
 
-                if (drink.Value.Count == 0)
+                if (drink.Count == 0)
                 {
-                    drink.Value.Count = 6;
+                    drink.Count = 6;
                 }
             }
         }
 
-        private Dictionary<string, ColdDrink> _CreateColdDrinksDict(Dictionary<string, AbstractDrink> drinks)
+        private Dictionary<string, ColdDrink> CreateColdDrinksDict(Dictionary<string, AbstractDrink> drinks)
         {
             Dictionary<string, ColdDrink> coldDrinks = new Dictionary<string, ColdDrink>();
 
@@ -63,7 +63,7 @@ namespace DzCoffee.Machines
 
             foreach (ColdDrink coldDrink in _coldDrinks.Values)
             {
-                coldDrink.PrintDrink();
+                Console.WriteLine(coldDrink);
             }
 
             Console.WriteLine("Выбери напиток, написав название");
@@ -114,14 +114,14 @@ namespace DzCoffee.Machines
             {
                 isBroken = true;
 
-                Console.WriteLine($"Аппарат не выдаст тебе {crntDrink.Name}");
-                throw new Exception($"Автомат газировок {Name} {Address}! Беда: {crntDrink.Name} кончился!!");
+                Console.WriteLine($"Аппарат не выдаст тебе {crntDrink}");
+                throw new Exception($"Автомат газировок {Name} {Address}! Беда: {crntDrink} кончился!!");
             }
             else
             {
                 crntDrink.Count -= 1;
 
-                Console.WriteLine($"Ваш {crntDrink.Name} выдан!!!!");
+                Console.WriteLine($"Ваш {crntDrink} выдан!!!!");
                 Console.WriteLine();
             }
         }

@@ -24,7 +24,7 @@ namespace DzCoffee.Machines
             CoffeePowder = coffeePowder;
             Milk = milk;
             Sugar = sugar;
-            _hotDrinks = hotDrinks;
+            _hotDrinks = new Dictionary<string, HotDrink> (hotDrinks);
             _money = 0;
         }
 
@@ -57,7 +57,7 @@ namespace DzCoffee.Machines
 
             foreach (HotDrink hotDrink in _hotDrinks.Values)
             {
-                hotDrink.PrintDrink();
+                Console.WriteLine(hotDrink);
             }
 
             Console.WriteLine("Выбери напиток, написав его название");
@@ -78,6 +78,7 @@ namespace DzCoffee.Machines
                 throw new Exception("");
             }
         }
+
         private double EnterMoney()
         {
             Console.WriteLine("Карту с баблом запихивай и спишем деняк сколько скажешь");
@@ -111,7 +112,7 @@ namespace DzCoffee.Machines
                 isBroken = true;
 
                 Console.WriteLine($"Аппарат не приготовит тебе {crntDrink.Name}");
-                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Напиток {crntDrink.Name} кончился Кофе {CoffeePowder} Вода {Water} Молоко {Milk} Сахар {Sugar}");
+                throw new Exception($"Автомат кофе {Name} {Address}! Беда: Напиток {crntDrink} кончился Кофе {CoffeePowder} Вода {Water} Молоко {Milk} Сахар {Sugar}");
             }
             else
             {
@@ -120,7 +121,7 @@ namespace DzCoffee.Machines
                 Milk -= crntDrink.MilkNeeded;
                 Sugar -= crntDrink.SugarNeeded;
 
-                Console.WriteLine($"Ваш {crntDrink.Name} готов!!!!");
+                Console.WriteLine($"Ваш {crntDrink} готов!!!!");
                 Console.WriteLine();
             }
         }

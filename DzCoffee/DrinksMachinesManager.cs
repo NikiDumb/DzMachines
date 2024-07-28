@@ -3,11 +3,11 @@ using DzCoffee.Machines;
 using System.Net;
 using System.Reflection.PortableExecutable;
 
-namespace DzCoffee.MachineManager
+namespace DzCoffee
 {
     public class DrinksMachinesManager
     {
-        public List<Machines.AbstractMachine> Machines { get; set; }
+        public List<AbstractMachine> Machines { get; set; }
 
         public ErrorsDataManager ErrorsWriter { get; set; }
 
@@ -33,18 +33,18 @@ namespace DzCoffee.MachineManager
 
         public void SolveError()
         {
-            Dictionary<string, Machines.AbstractMachine> brokenMachines = PrintBrokenMachines();
+            Dictionary<string, AbstractMachine> brokenMachines = ReturnBrokenMachines();
 
             string solution = ChooseSolution();
 
             Repairs(solution, brokenMachines);
         }
 
-        public Dictionary<string, Machines.AbstractMachine> PrintBrokenMachines()
+        public Dictionary<string, AbstractMachine> ReturnBrokenMachines()
         {
-            Dictionary<string, Machines.AbstractMachine> brokenMachines = new Dictionary<string, Machines.AbstractMachine>();
+            Dictionary<string, AbstractMachine> brokenMachines = new Dictionary<string, AbstractMachine>();
 
-            foreach(var machine in Machines)
+            foreach (var machine in Machines)
             {
                 if (machine.isBroken)
                 {
@@ -67,11 +67,11 @@ namespace DzCoffee.MachineManager
             return solution;
         }
 
-        public void Repairs(string solution, Dictionary<string, Machines.AbstractMachine> machines)
+        public void Repairs(string solution, Dictionary<string, AbstractMachine> machines)
         {
             if (solution == "БЕДА")
             {
-                foreach(string address in machines.Keys)
+                foreach (string address in machines.Keys)
                 {
                     machines[address].ReloadMachineStocks();
 

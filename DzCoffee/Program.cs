@@ -1,6 +1,5 @@
 ﻿using DzCoffee.DataManager;
 using DzCoffee.Drinks;
-using DzCoffee.MachineManager;
 using DzCoffee.Machines;
 
 namespace DzCoffee
@@ -28,46 +27,19 @@ namespace DzCoffee
                 Machines = new List<AbstractMachine>()
                 {
                     new ColdDrinksMachine
-                    (
-                        "Артурка",
-                        "Дыбенко",
-                        drinks
-                        ),
+                    ( "Артурка", "Дыбенко", drinks),
 
                     new ColdDrinksMachine
-                    (
-                        "Лупа",
-                        "бенко",
-                        drinks
-                        ),
+                    ( "Лупа", "бенко", drinks),
 
                     new CoffeeMachine
-                    (
-                        "Максем",
-                        "Пионерская",
-                        100,
-                        100,
-                        100,
-                        100,
-                        hotDrinks
-                    ),
+                    ( "Максем", "Пионерская", 100, 100, 100, 100, hotDrinks ),
 
                     new CoffeeMachine
-                    (
-                        "Боба",
-                        "Автово",
-                        10,
-                        10,
-                        1,
-                        1,
-                        hotDrinks
-                    ),
+                    ( "Боба", "Автово", 10, 10, 1, 1, hotDrinks ),
 
                     new JuiceMachine
-                    (
-                        "ЕГОРКА",
-                        "Спасская"
-                    )
+                    ( "ЕГОРКА", "Спасская" )
                 },
 
                 ErrorsWriter = new ErrorsDataManager("Data/MachineErrors")

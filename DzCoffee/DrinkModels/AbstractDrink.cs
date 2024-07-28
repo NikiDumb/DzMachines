@@ -1,5 +1,9 @@
-﻿namespace DzCoffee.Drinks
+﻿using System.Text.Json.Serialization;
+
+namespace DzCoffee.Drinks
 {
+    [JsonDerivedType(typeof(HotDrink), "Hot")]
+    [JsonDerivedType(typeof(ColdDrink), "Cold")]
     public class AbstractDrink
     {
         public string Name { get; set; }
@@ -12,11 +16,15 @@
             Price = price;
         }
 
-        public void PrintDrink()
+        public override string ToString()
         {
-            Console.WriteLine($"Напиток {Name}");
-            Console.WriteLine($"Стоимость {Price}руб");
-            Console.WriteLine();
+            return $"{Name} за {Price}";
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is AbstractDrink drink &&
+                   Name == drink.Name;
         }
     }
 }
