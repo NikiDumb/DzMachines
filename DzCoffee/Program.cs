@@ -8,13 +8,13 @@ namespace DzCoffee
     {
         static void Main(string[] args)
         {
-            CoffeeReceipesDataManager HotDataManager = new CoffeeReceipesDataManager("Data/coffeeReceipes");
+            GenericStorage<HotDrink> HotDataManager = new GenericStorage<HotDrink>("Data/coffeeReceipes");
 
-            Dictionary<string, HotDrink> hotDrinks = HotDataManager.ReturnReceipesDict();
+            Dictionary<string, HotDrink> hotDrinks = HotDataManager.ReturnDrinksDict();
 
             //HotDataManager.AddReceipe(HotDataManager.WriteReceipe());
 
-            ColdDrinksDataManager ColdDataManager = new ColdDrinksDataManager("Data/coldDrinks");
+            GenericStorage<AbstractDrink> ColdDataManager = new GenericStorage<AbstractDrink>("Data/coldDrinks");
 
             //ColdDataManager.AddDrink(ColdDataManager.WriteParameters());
 
@@ -42,7 +42,7 @@ namespace DzCoffee
                     ( "ЕГОРКА", "Спасская" )
                 },
 
-                ErrorsWriter = new ErrorsDataManager("Data/MachineErrors")
+                ErrorsWriter = new ErrorsStorage("Data/MachineErrors")
             };
             
             while (true)

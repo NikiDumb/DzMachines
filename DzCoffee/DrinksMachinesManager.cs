@@ -9,7 +9,7 @@ namespace DzCoffee
     {
         public List<AbstractMachine> Machines { get; set; }
 
-        public ErrorsDataManager ErrorsWriter { get; set; }
+        public ErrorsStorage ErrorsWriter { get; set; }
 
         public void RunMachines()
         {

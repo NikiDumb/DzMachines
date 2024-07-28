@@ -1,12 +1,12 @@
 ﻿namespace DzCoffee.DataManager
 {
-    public class ErrorsDataManager
+    public class ErrorsStorage
     {
         public string ErrorsJSON { get; set; }
 
         private string _filePath;
 
-        public ErrorsDataManager(string filePath)
+        public ErrorsStorage(string filePath)
         {
             ErrorsJSON = "";
 
