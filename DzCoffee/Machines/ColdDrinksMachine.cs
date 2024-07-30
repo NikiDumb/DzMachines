@@ -96,7 +96,7 @@ namespace DzCoffee.Machines
 
         private void PayForColdDrink(string drinkName, double money)
         {
-            if (money < _coldDrinks[drinkName].Price)
+            if (money != _coldDrinks[drinkName].Price)
             {
                 Console.WriteLine("Ты слишком бедный");
                 throw new Exception("");

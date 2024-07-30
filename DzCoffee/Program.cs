@@ -8,13 +8,13 @@ namespace DzCoffee
     {
         static void Main(string[] args)
         {
-            GenericStorage<HotDrink> HotDataManager = new GenericStorage<HotDrink>("Data/coffeeReceipes");
+            DrinksStorage<HotDrink> HotDataManager = new DrinksStorage<HotDrink>("Data/coffeeReceipes");
 
             Dictionary<string, HotDrink> hotDrinks = HotDataManager.ReturnDrinksDict();
 
             //HotDataManager.AddReceipe(HotDataManager.WriteReceipe());
 
-            GenericStorage<AbstractDrink> ColdDataManager = new GenericStorage<AbstractDrink>("Data/coldDrinks");
+            DrinksStorage<AbstractDrink> ColdDataManager = new DrinksStorage<AbstractDrink>("Data/coldDrinks");
 
             //ColdDataManager.AddDrink(ColdDataManager.WriteParameters());
 

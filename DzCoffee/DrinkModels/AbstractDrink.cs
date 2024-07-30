@@ -2,8 +2,6 @@
 
 namespace DzCoffee.Drinks
 {
-    [JsonDerivedType(typeof(HotDrink), "Hot")]
-    [JsonDerivedType(typeof(ColdDrink), "Cold")]
     public class AbstractDrink
     {
         public string Name { get; set; }

@@ -8,11 +8,11 @@ using System.Threading.Tasks;
 
 namespace DzCoffee.DataManager
 {
-    public class GenericStorage<T> where T : AbstractDrink
+    public class DrinksStorage<T> where T : AbstractDrink
     {
         private string _filePath { get; set; }
 
-        public GenericStorage(string filepath)
+        public DrinksStorage(string filepath)
         {
             ChangeFilePath(filepath);
         }
@@ -20,6 +20,7 @@ namespace DzCoffee.DataManager
         public void ChangeFilePath(string filePath)
         {
             filePath = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, filePath);
+
             if (File.Exists(filePath))
             {
                 _filePath = filePath;
@@ -55,7 +56,7 @@ namespace DzCoffee.DataManager
 
             if (drinksJSON != "")
             {
-                drinks = JsonSerializer.Deserialize<List<T>>(drinksJSON) ?? new List<T>();
+                drinks = JsonSerializer.Deserialize<List<T>>(drinksJSON);
             }
 
             return drinks;
@@ -66,9 +67,12 @@ namespace DzCoffee.DataManager
         {
             var drinks = ReadFile();
 
-            drinks.Add(drink);
+            if (!drinks.Contains(drink))
+            {
+                drinks.Add(drink);
 
-            WriteToFile(drinks);
+                WriteToFile(drinks);
+            }
         }
 
         public void WriteToFile(List<T> drinks)
@@ -79,5 +83,38 @@ namespace DzCoffee.DataManager
             writer.Close();
         }
 
+        public bool RemoveDrink(string drinkName)
+        {
+            var drinks = ReadFile();
+
+            foreach (var drink in drinks)
+            {
+                if (drink.Name == drinkName)
+                {
+                    drinks.Remove(drink);
+                    WriteToFile(drinks);
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveDrink(T drinkToRemove)
+        {
+            var drinks = ReadFile();
+
+            if (drinks.Contains(drinkToRemove))
+            {
+                drinks.Remove(drinkToRemove);
+                WriteToFile(drinks);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }

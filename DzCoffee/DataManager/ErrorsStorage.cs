@@ -8,14 +8,13 @@
 
         public ErrorsStorage(string filePath)
         {
-            ErrorsJSON = "";
-
             ChangeFilePath(filePath);
         }
 
         public void ChangeFilePath(string filePath)
         {
             filePath = Path.Combine(Directory.GetParent(Environment.CurrentDirectory).Parent.Parent.FullName, filePath);
+
             if (File.Exists(filePath))
             {
                 _filePath = filePath;
@@ -28,20 +27,22 @@
             }
         }
 
-        public void GetErrorsJSON()
+        public string GetErrorsJSON()
         {
-            ErrorsJSON = string.Empty;
+            var ErrorsJSON = string.Empty;
+
             StreamReader reader = new StreamReader(_filePath);
             ErrorsJSON += reader.ReadToEnd();
             reader.Close();
 
+            return ErrorsJSON;
         }
 
         public void WriteToFile(string error)
         {
             if (error != "")
             {
-                GetErrorsJSON();
+                var ErrorsJSON = GetErrorsJSON();
                 ErrorsJSON += error;
 
                 StreamWriter writer = new StreamWriter(_filePath);
