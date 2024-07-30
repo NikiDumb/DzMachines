@@ -4,8 +4,6 @@ namespace DzCoffee.Machines
 {
     public class ColdDrinksMachine : AbstractMachine
     {
-        public Dictionary<string, int> CountsOfColdDrinks { get; set; }
-
         private Dictionary<string, ColdDrink> _coldDrinks;
 
         public double Money { get; set; }
@@ -124,6 +122,16 @@ namespace DzCoffee.Machines
                 Console.WriteLine($"Ваш {crntDrink} выдан!!!!");
                 Console.WriteLine();
             }
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is ColdDrinksMachine machine &&
+                   Name == machine.Name &&
+                   Address == machine.Address &&
+                   isBroken == machine.isBroken &&
+                   _coldDrinks.OrderBy(kvp => kvp.Key).SequenceEqual(machine._coldDrinks.OrderBy(kvp => kvp.Key)) &&
+                   Money == machine.Money;
         }
     }
 }

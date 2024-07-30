@@ -125,5 +125,19 @@ namespace DzCoffee.Machines
                 Console.WriteLine();
             }
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is CoffeeMachine machine &&
+                   Name == machine.Name &&
+                   Address == machine.Address &&
+                   isBroken == machine.isBroken &&
+                   Water == machine.Water &&
+                   CoffeePowder == machine.CoffeePowder &&
+                   Milk == machine.Milk &&
+                   Sugar == machine.Sugar &&
+                   _hotDrinks.OrderBy(kvp => kvp.Key).SequenceEqual(machine._hotDrinks.OrderBy(kvp => kvp.Key)) &&
+                   _money == machine._money;
+        }
     }
 }

@@ -107,5 +107,41 @@ namespace DzCoffee
             ErrorsWriter.GetErrorsJSON();
             PrintErrors();
         }
+
+        public bool RemoveMachine(string machineName)
+        {
+            foreach (var machine in Machines)
+            {
+                if (machine.Name == machineName)
+                {
+                    Machines.Remove(machine);
+
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        public bool RemoveMachine(AbstractMachine machineToRemove)
+        {
+            if (Machines.Contains(machineToRemove))
+            {
+                Machines.Remove(machineToRemove);
+
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        public override bool Equals(object? obj)
+        {
+
+            return obj is DrinksMachinesManager manager &&
+                   Machines.SequenceEqual(manager.Machines) &&
+                   EqualityComparer<ErrorsStorage>.Default.Equals(ErrorsWriter, manager.ErrorsWriter);
+        }
     }
 }

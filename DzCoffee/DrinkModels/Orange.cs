@@ -14,5 +14,11 @@ namespace DzCoffee.Drinks
         {
             DaysAlive--;
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is Orange orange &&
+                   DaysAlive == orange.DaysAlive;
+        }
     }
 }

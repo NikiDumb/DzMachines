@@ -73,5 +73,14 @@ namespace DzCoffee.Machines
                 Oranges.RemoveAt(i);
             }
         }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is JuiceMachine machine &&
+                   Name == machine.Name &&
+                   Address == machine.Address &&
+                   isBroken == machine.isBroken &&
+                   Oranges.SequenceEqual(machine.Oranges);
+        }
     }
 }

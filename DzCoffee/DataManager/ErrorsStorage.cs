@@ -29,7 +29,7 @@
 
         public string GetErrorsJSON()
         {
-            var ErrorsJSON = string.Empty;
+            var errorsJSON = string.Empty;
 
             StreamReader reader = new StreamReader(_filePath);
             ErrorsJSON += reader.ReadToEnd();
@@ -42,7 +42,7 @@
         {
             if (error != "")
             {
-                var ErrorsJSON = GetErrorsJSON();
+                var errorsJSON = GetErrorsJSON();
                 ErrorsJSON += error;
 
                 StreamWriter writer = new StreamWriter(_filePath);

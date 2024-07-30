@@ -32,6 +32,7 @@ namespace DzCoffee.DataManager
                 _filePath = filePath;
             }
         }
+
         public Dictionary<string, T> ReturnDrinksDict()
         {
             var drinksDict = new Dictionary<string, T>();
@@ -61,7 +62,6 @@ namespace DzCoffee.DataManager
 
             return drinks;
         }
-
 
         public void AddDrink(T drink)
         {
@@ -115,6 +115,12 @@ namespace DzCoffee.DataManager
             {
                 return false;
             }
+        }
+
+        public override bool Equals(object? obj)
+        {
+            return obj is DrinksStorage<T> storage &&
+                   _filePath == storage._filePath;
         }
     }
 }
