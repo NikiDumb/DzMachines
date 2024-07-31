@@ -15,6 +15,13 @@ namespace DzCoffee.Machines
             Money = 0;
         }
 
+        public ColdDrinksMachine(string name, string address, Dictionary<string, ColdDrink> drinks)
+            : base(name, address) 
+        {
+            _coldDrinks = drinks;
+            Money = 0;
+        }
+
         public override void GetDrink()
         {
             PrintColdDrinksList();
@@ -43,7 +50,7 @@ namespace DzCoffee.Machines
             }
         }
 
-        private Dictionary<string, ColdDrink> CreateColdDrinksDict(Dictionary<string, AbstractDrink> drinks)
+        public Dictionary<string, ColdDrink> CreateColdDrinksDict(Dictionary<string, AbstractDrink> drinks)
         {
             Dictionary<string, ColdDrink> coldDrinks = new Dictionary<string, ColdDrink>();
 
